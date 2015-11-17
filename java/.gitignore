@@ -1,0 +1,7 @@
+bin
+out
+*.class
+.DS_Store
+workspace.xml
+tasks.xml
+*.iws
