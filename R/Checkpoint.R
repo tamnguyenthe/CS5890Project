@@ -27,9 +27,7 @@ for (fold in folds) {
                         +requester_upvotes_plus_downvotes_at_request + requester_upvotes_minus_downvotes_at_request, 
                         data = pizza.train, family = binomial(link = "logit"))
   predicted.result <- predict(logistic.model, newdata=pizza.test)
-  # print(predicted.result)
   predicted <- ifelse(predicted.result >= 0.5,1, 0)
-  misClasificError <- mean(predicted != pizza.test$received)
-  print(paste('Accuracy',1-misClasificError))
+  print(table(predicted, pizza.test$received))
 }
 
