@@ -1,0 +1,12 @@
+Cluster 7 5.828583 
+Cluster 8 4.663926 
+Cluster 5 -4.429062 
+Cluster 2 -3.118631 
+Cluster 3 -2.862283 
+Cluster 10 1.788036 
+Cluster 9 -1.661633 
+Cluster 4 -1.420261 
+Cluster 1 1.394946 
+Cluster 6 -1.003425 
+accuracy sensitivity specificity precision recall f_measure gmean 
+0.500679 0.634000 0.457168 NaN 0.634000 NaN 0.403429 

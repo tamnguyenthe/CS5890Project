@@ -1,0 +1,30 @@
+\section{The dataset}
+We downloaded data from Kaggle\footnote{\url{https://www.kaggle.com/c/random-acts-of-pizza/download/train.json.zip}}. The dataset includes 4040 requests collected from the Reddit community Random Acts of Pizza between December 8, 2010 and September 29, 2013. Each data object is a request for a free pizza. There are 994 requests received a pizza while 3046 requests did not. \\
+
+The dataset is in \texttt{JSON} format. Each \texttt{JSON} entry represents one pizza request. Data fields includes information about requests such as id, text, requester name, etc. and meta-data such as: time of the request, activity of the requester, community-age of the requester, etc. There are several fields are collected after the time a request was posted, the values of those fields doesn't affect whether a request receive pizza, thus, we removed those fields out of the dataset. Table \ref{fields} shows important attributes (and explanations that) we consider in our analysis.
+
+\begin{table}[]
+	\sf\scriptsize
+	\centering
+	\caption{Important attributes used in our analysis}
+	\label{fields}
+	\begin{tabular}{lp{10cm}}
+		\toprule
+		Important Attributes                              & Explanations                                                                          \\
+		\midrule
+		\multicolumn{2}{l}{Request text}                                                                                                        \\
+		\midrule
+		request\_title                                    & Title of the request                                                                  \\
+		request\_text\_edit\_aware                        & Request text after removing comments indicating the success of the request            \\
+		\midrule
+		\multicolumn{2}{l}{Requester information}                                                                                                 \\
+		\midrule
+		requester\_account\_age\_in\_days\_at\_request    & The age of requester (in days) at time of request                                     \\
+		requester\_number\_of\_comments\_at\_request      & The number of comments on Reddit by requester at time of request                      \\
+		requester\_number\_of\_posts\_at\_request         & The number of posts on Reddit by requester at time of request.                        \\
+		requester\_subreddits\_at\_request                & The number of subreddits that requester had posted in at the time of request. \\
+		requester\_upvotes\_minus\_downvotes\_at\_request & Difference of upvotes and downvotes of requester at time of retrieval.                \\
+		requester\_upvotes\_plus\_downvotes\_at\_request  & Sum of  upvotes and downvotes of requester at time of request.                        \\
+		\bottomrule
+	\end{tabular}
+\end{table}

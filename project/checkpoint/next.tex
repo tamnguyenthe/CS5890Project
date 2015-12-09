@@ -1,0 +1,9 @@
+\section{Next steps}
+
+In this section we will discuss our next steps, what we think we will try based on the current finding. According to the current result, textual content of each request provide a good source of information that we want to explore further. We have tried to used a simple bag of word model as input for our logistic regression, however, this is not the best possible approach.\\
+
+Recently more effective un-supervised techniques such as topic modeling or vector space representation (word2vec) have emerged. Not only such techniques could improve our prediction accuracy, they would also help us under stand more in details the kind of request that have the most successful rate. For example, topic modeling would help us cluster word or phrases into different topics and by analyze the weight assigned by logistic regression to each topic, we will see which of the topics are more important in creating a successful request.\\
+
+Vector space representation has been applied very successful in the field of natural language processing. In particular, word2vec has gained popularity due to it simplify and the fact that the tool was made available by Google. The idea is that word2vec will encored each word as a \q{semantic} vector, with the similar vectors represent similar word (e.g. apple and orange will be similar because they are both fruits), not only that these vector also display very interesting linear sub-structure (e.g. vector(queen)-vector(woman)+vector(man) is similar to vector(king)). We hope that with this \q{semantic} encoding our prediction will be much stronger.\\
+
+Last but not least, we plan to use a more sophisticate classifier, namely Support Vector Machine (SVM). This classifier will provide much more generalized model that will help increase the overall accuracy.

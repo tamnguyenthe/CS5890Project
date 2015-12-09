@@ -10,8 +10,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,6 +38,12 @@ public class TextAnalyzer {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        PrintWriter printWriter = null;
+        try {
+            printWriter = new PrintWriter(new File("pizza_raw.dat"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         textTrain = new ArrayList<Pair<String, Boolean>>();
         Iterator iterator = trainJson.iterator();
         while (iterator.hasNext()) {
@@ -49,9 +54,11 @@ public class TextAnalyzer {
             String requestTextEditAware = (String) jsonObject.get("request_text_edit_aware");
             requestTextEditAware = requestTextEditAware.toLowerCase();
             String combinedText = requestTitle + ". " + requestTextEditAware;
+            printWriter.println(combinedText);
             Boolean requesterReceivedPizza = (Boolean) jsonObject.get("requester_received_pizza");
             textTrain.add(Pair.of(combinedText, requesterReceivedPizza));
         }
+        printWriter.close();
         System.out.println(textTrain.get(2));
     }
 
@@ -82,15 +89,32 @@ public class TextAnalyzer {
         dfFalse = new HashMap<String, Integer>();
         dfTrue = new HashMap<String, Integer>();
         df = new HashMap<String, Integer>();
+        PrintWriter printWriter = null;
+        try {
+            printWriter = new PrintWriter(new File("pizza.csv"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        PrintWriter printWriter1 = null;
+        try {
+            printWriter1 = new PrintWriter(new File("pizza_raw.txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        int  i = 0;
 
         Pattern pattern = Pattern.compile("([a-z][a-z'\\-_]+[a-z])|([a-z]+)");
         for (Pair<String, Boolean> request : textTrain) {
+            printWriter.print(i++);
+            printWriter.print(", " + request.getRight() + ", ");
             Map<String, Integer> docTf = new HashMap<String, Integer>();
             Matcher matcher = pattern.matcher(request.getLeft());
             List<String> wordList = new ArrayList<String>();
             while (matcher.find()) {
                 String word = matcher.group();
+                printWriter1.print(" "+ word);
                 if (!stopWords.contains(word)) {
+                    printWriter.print(" "+ word);
                     wordList.add(word);
                     if (!dictionary.containsKey(word)) dictionary.put(word, dictionary.size());
                     Integer count = docTf.get(word);
@@ -100,6 +124,8 @@ public class TextAnalyzer {
             }
             tf.add(Pair.of(docTf, request.getRight()));
             tokenizedTextTrain.add(Pair.of(wordList, request.getRight()));
+            printWriter.println();
+            printWriter1.println();
         }
         for (Pair<Map<String, Integer>, Boolean> request : tf) {
             for (Map.Entry<String, Integer> term : request.getLeft().entrySet()) {
@@ -123,6 +149,8 @@ public class TextAnalyzer {
         System.out.println(dfFalse.size());
         System.out.println(dfTrue.size());
         System.out.println(dictionary.size());
+        printWriter1.close();
+        printWriter.close();
     }
 
     public void rankWord() {
@@ -159,8 +187,15 @@ public class TextAnalyzer {
             }
         });
 
-        System.out.println(falseRanking.subList(0, 30));
-        System.out.println(trueRanking.subList(0, 30));
+//        for (int i = 0; i < 30; i++) {
+//            for (int j = 0; j < 30-i; j++) {
+//                System.out.println(falseRanking.get(i).getKey());
+//            }
+//        }
+//        System.out.println();
+        for (int i = 0; i < 30; i++) {
+            System.out.println(falseRanking.get(i).getKey());
+        }
     }
 
 
